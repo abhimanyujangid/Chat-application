@@ -8,9 +8,10 @@ dotenv.config({});
 const app = express();
 
 const PORT = process.env.PORT || 8000;
-
+//midlle ware
+app.use(express.json());
 //routes
-app.use("api/v1/user", userRoute )
+app.use("/api/v1/user", userRoute )
 
 app.listen(PORT, ()=>{
     connectDB()
