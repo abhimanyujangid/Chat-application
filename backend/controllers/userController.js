@@ -1,6 +1,9 @@
 import { User } from "../models/userModel.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+
+
+//-----------------------register Start-----------------------
 export const register = async(req,res)=>{
     try {
         const {fullName,username,password,confirmPassword,gender} = req.body;
@@ -35,11 +38,11 @@ export const register = async(req,res)=>{
         })
     } catch (error) {
         console.log(error);
+        res.status(500).json({ message: "Server error during registration." });
     }
 }
-//-------------------register end-----------------------------
 
-//.....................for login....................................
+//.....................for login................................
 export const login = async(req,res)=>{
     try {
         const {username ,password} =  req.body; // req 
@@ -81,10 +84,9 @@ export const login = async(req,res)=>{
         )
     } catch (error) {
         console.log(error)
+        res.status(500).json({ message: "Server error during login." });
     }
 }
-
-//-----------------------login End------------------------------------\
 
 //-----------------------logout start-----------------------------
 export const logout = (req,res) =>{
@@ -100,3 +102,15 @@ export const logout = (req,res) =>{
         
     }
 }
+//------------------------ Get Other Users ---------------------------
+export const getOtherUsers = async (req, res) => {
+    try {
+        const { id: loggedInUserId } = req;
+        const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
+        
+        res.status(200).json(otherUsers);
+    } catch (error) {
+        console.error("Error fetching other users:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
