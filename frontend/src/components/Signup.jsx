@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,Navigate,useNavigate } from 'react-router-dom'
+import axios from "axios"
+import toast from "react-hot-toast"
+
 const Signup = () => {
   const [user,setUser] = useState({
     fullName:"",
@@ -8,10 +11,31 @@ const Signup = () => {
     confirmPassword:"",
     gender:""
   })
+  const navigate = useNavigate();
+  const handleCheckbox = (gender) =>{
+    setUser({...user,gender})
+  }
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(user)
+    try {
+      const res = await axios.post(`http://localhost:4100/api/v1/user/register`,user,{
+        headers:{
+          'Content-Type':'application/json'
+        }
+      ,
+      withCredentials:true 
+      })
+      // For showing message dispaly using toast lib.. and navigate the login page
+      if (res.data.success) {
+        navigate("/login")
+        toast.success(res.data.message)
+      }
+    } catch (error) {
+      toast.error(error.response.data.message)
+      console.log(error);
+      
+    }
     setUser({
       fullName:"",
       username:"",
@@ -30,34 +54,42 @@ const Signup = () => {
             <label htmlFor="" className='label p-2'>
               <span className='text-base label-text'>Full Name</span>
             </label>
-            <input onChange={(e)=> setUser({...user,fullName:e.target.value})} value={user.fullName} className='w-full input input-bordered h-10' type="text" placeholder='Full Name' />
+            <input onChange={(e)=> setUser({...user,fullName:e.target.value})} value={user.fullName} required className='w-full input input-bordered h-10' type="text" placeholder='Full Name' />
           </div>
           <div>
             <label htmlFor="" className='label p-2'>
               <span className='text-base label-text'>User Name</span>
             </label>
-            <input onChange={(e)=> setUser({...user,username:e.target.value})} value={user.username} className='w-full input input-bordered h-10' type="text" placeholder='User Name' />
+            <input onChange={(e)=> setUser({...user,username:e.target.value})} value={user.username} required className='w-full input input-bordered h-10' type="text" placeholder='User Name' />
           </div>
           <div>
             <label htmlFor="" className='label p-2'>
               <span className='text-base label-text'>Password</span>
             </label>
-            <input onChange={(e)=> setUser({...user,password:e.target.value})} value={user.password} className='w-full input input-bordered h-10' type="password" placeholder='Password' />
+            <input onChange={(e)=> setUser({...user,password:e.target.value})} value={user.password} required className='w-full input input-bordered h-10' type="password" placeholder='Password' />
           </div>
           <div>
             <label htmlFor="" className='label p-2'>
               <span className='text-base label-text'>Confirm Password </span>
             </label>
-            <input onChange={(e)=> setUser({...user,confirmPassword:e.target.value})} value={user.confirmPassword} className='w-full input input-bordered h-10' type="password" placeholder='Confirm Password' />
+            <input onChange={(e)=> setUser({...user,confirmPassword:e.target.value})} value={user.confirmPassword} required className='w-full input input-bordered h-10' type="password" placeholder='Confirm Password' />
           </div>
           <div className='flex items-center my-2'>
             <div className='flex item-center'>
               <p>Male:</p>
-              <input type="checkbox"  className="checkbox mx-2" />
+              <input 
+              checked={user.gender === "male"}
+              onChange={()=>handleCheckbox("male")}
+              type="checkbox" 
+              className="checkbox mx-2" />
             </div>
             <div className='flex item-center'>
               <p>Female:</p>
-              <input type="checkbox" className="checkbox mx-2" />
+              <input
+              checked={user.gender === "female"}
+              onChange={()=>handleCheckbox("female")}
+              type="checkbox" 
+              className="checkbox mx-2" />
             </div>
           </div>
 

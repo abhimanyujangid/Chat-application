@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import {Link} from "react-router-dom"
+import {Link,useNavigate} from "react-router-dom"
+import toast from 'react-hot-toast'
+import axios from 'axios'
+
 const Login = () => {
 
   const [user,setUser] = useState({
@@ -7,9 +10,28 @@ const Login = () => {
     password:"",
   })
 
-  const onSubmitHandler = (e) => {
+  const navigate = useNavigate(); // use Navigate lib.. for page navigate
+  const onSubmitHandler = async(e) => {
     e.preventDefault();
-    console.log(user)
+    try {
+      const res = await axios.post(`http://localhost:4100/api/v1/user/login`,user,{
+        headers:{
+          'Content-Type':'application/json'
+        }
+      ,
+      withCredentials:true 
+      })
+      // For showing message dispaly using toast lib.. and navigate the login page
+        navigate("/");
+        toast.success(res.data.message)
+
+        console.log(res);
+        
+    } catch (error) {
+      toast.error(error.response.data.message)
+      console.log(error);
+      
+    }
     setUser({
       username:"",
       password:"",
@@ -25,13 +47,13 @@ const Login = () => {
             <label htmlFor="" className='label p-2'>
               <span className='text-base label-text' >User Name</span>
             </label>
-            <input onChange={(e)=> setUser({...user,username:e.target.value})} value={user.username} className='w-full input input-bordered h-10' type="text" placeholder='User Name' />
+            <input onChange={(e)=> setUser({...user,username:e.target.value})} value={user.username} required className='w-full input input-bordered h-10' type="text" placeholder='User Name' />
           </div>
           <div>
             <label htmlFor="" className='label p-2'>
               <span className='text-base label-text'>Password</span>
             </label>
-            <input onChange={(e)=> setUser({...user,password:e.target.value})} value={user.password} className='w-full input input-bordered h-10' type="password" placeholder='Password' />
+            <input onChange={(e)=> setUser({...user,password:e.target.value})} value={user.password} required className='w-full input input-bordered h-10' type="password" placeholder='Password' />
           </div>
           <div className='flex items-center'>
             <p>Don't have an account?</p>
