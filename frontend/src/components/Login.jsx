@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import {Link,useNavigate} from "react-router-dom"
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { setAuthUser } from '../redux/userSlice'
 
 const Login = () => {
 
@@ -9,12 +11,12 @@ const Login = () => {
     username:"",
     password:"",
   })
-
+  const dispatch = useDispatch()
   const navigate = useNavigate(); // use Navigate lib.. for page navigate
   const onSubmitHandler = async(e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`http://localhost:4100/api/v1/user/login`,user,{
+      const res = await axios.post(`http://localhost:4000/api/v1/user/login`,user,{
         headers:{
           'Content-Type':'application/json'
         }
@@ -23,9 +25,7 @@ const Login = () => {
       })
       // For showing message dispaly using toast lib.. and navigate the login page
         navigate("/");
-        toast.success(res.data.message)
-
-        console.log(res);
+        dispatch(setAuthUser(res.data))
         
     } catch (error) {
       toast.error(error.response.data.message)
