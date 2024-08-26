@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SingleMessage = () => {
+const SingleMessage = ({message}) => {
     return (
         <div className="chat chat-start">
             <div className="chat-image avatar">
@@ -13,7 +13,7 @@ const SingleMessage = () => {
             <div className="chat-header">
                 <time className="text-xs opacity-50 text-white">12:45</time>
             </div>
-            <div className="chat-bubble">You were the Chosen One!</div>
+            <div className="chat-bubble">{message?.message}</div>
         </div>
     )
 }
