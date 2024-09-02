@@ -2,6 +2,7 @@ import { User } from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+//================= For Register================================
 export const register = async (req, res) => {
     try {
         const { fullName, username, password, confirmPassword, gender } = req.body;
@@ -37,6 +38,8 @@ export const register = async (req, res) => {
         console.log(error);
     }
 };
+
+//==================For Login===================================
 export const login = async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -74,6 +77,8 @@ export const login = async (req, res) => {
         console.log(error);
     }
 }
+
+//==================For Logout===================================
 export const logout = (req, res) => {
     try {
         return res.status(200).cookie("token", "", { maxAge: 0 }).json({
@@ -83,6 +88,8 @@ export const logout = (req, res) => {
         console.log(error);
     }
 }
+
+//===================For GetOtherUseer=============================
 export const getOtherUsers = async (req, res) => {
     try {
         const loggedInUserId = req.id;
