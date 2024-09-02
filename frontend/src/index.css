@@ -1,12 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+  background: url(../public/bg.avif);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-body{
-    background: url(https://img.freepik.com/free-photo/blue-smooth-wall-textured-background_53876-106133.jpg?t=st=1723666872~exp=1723670472~hmac=07c050080877ffa525a15221c47ef8a02986bfcd1e69ff5428ad7360719645ee&w=826);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 
+::-webkit-scrollbar {
+  /* Customize the scrollbar width */
+  width:6px;
+}
+
+::-webkit-scrollbar-track {
+  /* Customize the scrollbar track */
+  background-color: aliceblue;
+}
+
+::-webkit-scrollbar-thumb {
+  /* Customize the scrollbar thumb */
+  background: #1b1b1b;
+  border-radius: 10px;
+}

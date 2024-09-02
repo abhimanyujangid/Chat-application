@@ -1,25 +1,27 @@
 import React from 'react'
-import OtherUser from './OtherUser'
-import UseGetOtherUsers from '../hooks/UseGetOtherUsers'
-import { useSelector } from 'react-redux';
+import OtherUser from './OtherUser';
+import useGetOtherUsers from '../hooks/useGetOtherUsers';
+import {useSelector} from "react-redux";
+
 
 const OtherUsers = () => {
-    //Coustom hook for create get other user
-    UseGetOtherUsers();
-    const {otherUser}  = useSelector(store=>store.user);
-    //Early return in react
-    if (!otherUser) {
-        return;
-    }
+    // my custom hook
+    useGetOtherUsers();
+    const {otherUsers} = useSelector(store=>store.user);
+    if (!otherUsers) return; // early return in react
+     
     return (
         <div className='overflow-auto flex-1'>
-            {otherUser?.map((user)=>{
-                return(
-                    <OtherUser key={user._id} user={user} />
-                )
-            })}
+            {
+                otherUsers?.map((user)=>{
+                    return (
+                        <OtherUser key={user._id} user={user}/>
+                    )
+                })
+            }
+            
         </div>
     )
 }
-   
+
 export default OtherUsers
