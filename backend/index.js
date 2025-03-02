@@ -7,10 +7,13 @@ import messageRoute from "./routes/messageRoute.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { app,server } from "./socket/socket.js";
+import path from "path";
+
 dotenv.config({});
 
  //----------------------------Adding .env file---------------------------------
 const PORT = process.env.PORT || 5000;
+const __dirname = path.resolve();
 
 //-----------------------------Middle ware----------------------------------
 app.use(express.urlencoded({extended:true}));
@@ -27,6 +30,12 @@ app.use(cors(corsOption));
 //----------------------------------Routes------------------------------------
 app.use("/api/v1/user",userRoute); 
 app.use("/api/v1/message",messageRoute);
+
+//-------------------------------Deployment-----------------------------------
+app.use(express.static(path.join(__dirname, "/frontend/build")));
+app.get("*",(req,res)=>{
+    res.sendFile(path.join(__dirname,"/frontend/build/index.html"));
+});
  
 
 server.listen(PORT, ()=>{
