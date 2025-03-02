@@ -7,6 +7,7 @@ This project is a modern web application built using cutting-edge technologies t
 
 ### Tech Stack 🛠️  
 
+#### Frontend:  
 - **React** ⚛️ - A JavaScript library for building dynamic and interactive user interfaces.  
 - **Redux Toolkit** 🗄️ - Simplifies state management with powerful tools.  
 - **Socket.io Client** 🔄 - Enables real-time communication between users.  
@@ -15,22 +16,23 @@ This project is a modern web application built using cutting-edge technologies t
 - **Tailwind CSS** 🎨 - Provides utility-first styling for a sleek design.  
 - **DaisyUI** ✨ - A Tailwind CSS component library for rapid UI development.  
 
+#### Backend:  
+- **Node.js** 🚀 - A JavaScript runtime built on Chrome's V8 JavaScript engine.  
+- **Express** ⚡ - A minimal and flexible Node.js web application framework.  
+- **Mongoose** 🛢️ - An ODM (Object Data Modeling) library for MongoDB and Node.js.  
+- **Socket.io** 🔄 - For real-time bidirectional communication.  
+- **JWT (JSON Web Tokens)** 🔐 - For user authentication and authorization.  
+- **bcryptjs** 🔑 - For hashing passwords.  
+- **dotenv** 🌍 - For loading environment variables.  
+
 ### Features 💡  
 ✅ Real-time updates using WebSockets  
 ✅ Efficient state management with Redux Toolkit  
+✅ Secure authentication with JWT and bcryptjs  
 ✅ Responsive and accessible UI with Tailwind CSS & DaisyUI  
 ✅ Seamless navigation with React Router  
 ✅ API integration with Axios  
-
-### Backend
-
-- **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine.
-- **Express**: A minimal and flexible Node.js web application framework.
-- **Mongoose**: An ODM (Object Data Modeling) library for MongoDB and Node.js.
-- **Socket.io**: For real-time bidirectional communication.
-- **JWT (JSON Web Tokens)**: For user authentication and authorization.
-- **bcryptjs**: For hashing passwords.
-- **dotenv**: For loading environment variables.
+✅ Database management with MongoDB and Mongoose  
 
 ## Installation
 
